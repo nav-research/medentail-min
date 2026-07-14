@@ -42,7 +42,7 @@ of more than a few dozen documents.
 ## Usage
 
 ```python
-from medentail_min import MedEntail
+from medentail import MedEntail
 
 me = MedEntail()                          # loads the NLI model on first call
 
