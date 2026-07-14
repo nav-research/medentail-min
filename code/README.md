@@ -130,7 +130,7 @@ worst-case (minimum) aggregation, `ME_min`.
 
 ## License
 
-MIT — see [LICENSE](LICENSE).
+MIT — see [LICENSE](../LICENSE).
 
 ## Citation
 
