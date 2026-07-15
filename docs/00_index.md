@@ -16,9 +16,9 @@ This section documents the design decisions behind MedEntail, the worst-case ent
 2. *(reserved)*
 3. [Repetition penalty](03_repetition_penalty) — why raw entailment scores need a repetition penalty, and how it's applied.
 4. [Why worst-case](04_why_worst_case) — why we report $\mathrm{ME}_{\min}$ alongside $\mathrm{ME}_{\mathrm{mean}}$ instead of only the average.
-5. [The copy trap](05_copy_trap) — why a system that copies the source is trivially "faithful," and how we guard against it. *(pending — needs data)*
-6. [TextRank vs. lead](06_textrank_vs_lead) — comparing source-selection strategies for long articles. *(pending — needs data)*
-7. [Judge ceiling](07_judge_ceiling) — how output judging is bounded by the quality of its candidate pool. *(pending — needs data)*
+5. [The copy trap](05_copy_trap) — why a system that copies the source is trivially "faithful," and how we guard against it. *(pending)*
+6. [TextRank vs. lead](06_textrank_vs_lead) — comparing source-selection strategies for long articles. *(pending)*
+7. [Judge ceiling](07_judge_ceiling) — how output judging is bounded by the quality of its candidate pool. *(pending)*
 8. [Qualitative examples](08_qualitative_examples) — real worst-case and best-case predictions from the test sets, illustrating four distinct failure modes.
 
 ## Library
