@@ -65,7 +65,7 @@ Entailment scoring uses [`pritamdeka/PubMedBERT-MNLI-MedNLI`](https://huggingfac
 
 ## License
 
-MIT — see [`LICENSE`](../LICENSE) at the repository root. No commercial-use restriction.
+MIT — see [`LICENSE`](../LICENSE) at the repository root.
 
 ## Citation
 
