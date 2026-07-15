@@ -78,5 +78,5 @@ Aggregation for this example:
 - $\mathrm{ME}_{\mathrm{mean}} = (0.94 + 0.03) / 2 = 0.485$
 - $\mathrm{ME}_{\min} = 0.03$
 
-The average score (0.485) looks like a mediocre-but-not-alarming result. The worst-case score (0.03) makes the actual problem visible: H2 is an unsupported claim ("cured" is stronger than anything in the source, and no premise mentions a cure), and no amount of averaging with the good sentence H1 should hide that. This is the exact failure pattern documented with real model outputs in [Qualitative examples](08_qualitative_examples).
+The average score (0.485) looks like a mediocre-but-not-alarming result. The worst-case score (0.03) makes the actual problem visible: H2 is an unsupported claim ("cured" is stronger than anything in the source, and no premise mentions a cure), and no amount of averaging with the good sentence H1 should hide that. This is the exact failure pattern documented with real model outputs in [Qualitative examples](08_qualitative_examples.md).
 
