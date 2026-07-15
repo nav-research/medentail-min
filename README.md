@@ -6,62 +6,65 @@ A minimal, dependency-light implementation of MedEntail — a worst-case, entail
 
 ## What it does
 
-For a (source, prediction) pair, MedEntail splits the prediction into sentences and checks each one against the source using a natural-language-inference model. Each sentence gets the score of its best-supporting evidence in the source; the per-example result is reported as both the **mean** (average grounding) and the **min** (worst-case — is there any unsupported sentence at all).
+For a (source, prediction) pair, MedEntail splits the prediction into sentences and checks each one against the source using a natural-language-inference model. Each sentence gets the score of its best-supporting evidence in the source; the result is reported as both the **mean** (average grounding) and the **min** (worst-case — is there any unsupported sentence at all). An empty prediction scores 0 on both.
 
 ## Installation
+
 
 ```bash
 pip install git+https://github.com/nav-research/medentail-min.git#subdirectory=medentail_min
 ```
 
-Requires `torch` and `transformers`; the NLI model (`pritamdeka/PubMedBERT-MNLI-MedNLI`) is downloaded on first use, not at import time.
+Requires `torch`, `transformers`, and `nltk` (`punkt`/`punkt_tab` are downloaded automatically on first use if missing). The NLI model (`pritamdeka/PubMedBERT-MNLI-MedNLI` by default) is also loaded lazily on first use, not at construction.
 
 ## Quickstart
 
 ```python
 from medentail_min import MedEntail
 
-scorer = MedEntail()  # model loads lazily on first .score() call
+scorer = MedEntail()  # nothing loads yet
 
-result = scorer.score(
+result = scorer.score_one(
     source="Patients received either the study drug or placebo for eight weeks...",
     prediction="Patients took the drug or a placebo for eight weeks and were checked for symptom changes. The drug cured the underlying condition in most patients.",
 )
 
-print(result.me_min)   # worst-case score, e.g. 0.03
-print(result.me_mean)  # average score, e.g. 0.49
+print(result.min)   # worst-case score, e.g. 0.03
+print(result.mean)  # average score, e.g. 0.49
 ```
 
 ### Choosing the premise variant
 
-Long sources (full articles) should use overlapping token-window chunking; short sources can be split into sentences directly:
+The source-segmentation strategy is set when you construct the scorer, not per call — long sources should use overlapping token-window chunking, short sources can be split into sentences directly:
 
 ```python
-result = scorer.score(source=full_article, prediction=summary, method="chunk")     # long sources
-result = scorer.score(source=short_abstract, prediction=summary, method="sentence") # short sources
+scorer = MedEntail(method="chunk")     # default; for long sources (chunk_tokens=400, overlap=50)
+scorer = MedEntail(method="sentence")  # for short sources
 ```
 
-`method="chunk"` accepts `chunk_tokens` (default 400) and `overlap` (default 50) to control the window size.
+`chunk_tokens` and `overlap` are also constructor arguments (only used when `method="chunk"`), along with `max_length` (NLI input cap, default 512) and `hyp_max_tokens` (per-sentence truncation, default 400).
 
 ### Scoring a corpus
 
 ```python
-mins, means = scorer.score_corpus(sources, predictions, method="chunk")
-```
+result = scorer.score(sources, predictions)  # equal-length sequences
 
-Returns one score per example; average these across your test set to get the corpus-level `ME_min` / `ME_mean` reported in the paper.
+result.min           # corpus-level ME_min (mean of per-example worst-case scores)
+result.mean          # corpus-level ME_mean
+result.per_example   # list[ExampleScore], one per (source, prediction) pair
+```
 
 ## API reference
 
 | | |
 |---|---|
-| `MedEntail(model_name=..., entailment_idx=None, device=None)` | Constructor. `entailment_idx` is auto-detected from the model's label config if not provided. Nothing is loaded from disk until the first `.score()` call. |
-| `.score(source, prediction, method="chunk", chunk_tokens=400, overlap=50)` | Scores a single pair. Returns an object with `.me_min` and `.me_mean`. |
-| `.score_corpus(sources, predictions, **kwargs)` | Scores a list of pairs. Returns `(mins, means)` as arrays. |
+| `MedEntail(nli_model="pritamdeka/PubMedBERT-MNLI-MedNLI", entailment_idx=1, method="chunk", chunk_tokens=400, overlap=50, max_length=512, hyp_max_tokens=400, batch_size=64, device=None)` | Constructor. Cheap — nothing is loaded until the first scoring call. All settings default to the values used in the paper; changing them changes the metric. Pass `entailment_idx=None` to auto-detect it from the model's `config.id2label` (needed if you swap in a different NLI checkpoint). `device` defaults to `"cuda"` if available, else `"cpu"`. |
+| `.score_one(source, prediction) -> ExampleScore` | Scores a single pair. `.min` / `.mean`. |
+| `.score(sources, predictions, progress=True) -> CorpusScore` | Scores a corpus. `.min` / `.mean` are corpus-level aggregates; `.per_example` is the full list of per-pair `ExampleScore`s. `progress=True` shows a `tqdm` bar if installed. Raises `ValueError` if `sources` and `predictions` have different lengths. |
 
 ## Model
 
-Entailment scoring uses [`pritamdeka/PubMedBERT-MNLI-MedNLI`](https://huggingface.co/pritamdeka/PubMedBERT-MNLI-MedNLI). The entailment class index is auto-detected from the model config rather than hard-coded, so swapping in a different NLI checkpoint with a different label ordering shouldn't silently break scoring — check `scorer.entailment_idx` after construction if you're using a non-default model.
+Entailment scoring uses [`pritamdeka/PubMedBERT-MNLI-MedNLI`](https://huggingface.co/pritamdeka/PubMedBERT-MNLI-MedNLI) by default, with `entailment_idx=1`. If you use a different NLI model, either pass the correct index explicitly or pass `entailment_idx=None` to have it auto-detected by searching the model's `config.id2label` for a label containing "entail" — construction raises `ValueError` if that lookup fails, so a misconfigured model fails loudly rather than scoring the wrong class silently.
 
 ## License
 
