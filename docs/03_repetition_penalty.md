@@ -1,3 +1,8 @@
+---
+title: Repetition penalty
+nav_order: 3
+---
+
 > This page accompanies a manuscript currently under review at IEEE J-BHI. A citation will be provided upon acceptance.
 
 # Why `repetition_penalty = 1.15`?
