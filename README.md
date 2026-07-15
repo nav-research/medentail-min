@@ -11,12 +11,6 @@ For a (source, prediction) pair, MedEntail splits the prediction into sentences 
 ## Installation
 
 ```bash
-pip install -e .
-```
-
-or, without cloning:
-
-```bash
 pip install git+https://github.com/nav-research/medentail-min.git#subdirectory=medentail_min
 ```
 
