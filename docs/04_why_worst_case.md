@@ -1,3 +1,8 @@
+---
+title: Why worst-case
+nav_order: 4
+---
+
 > This page accompanies a manuscript currently under review at IEEE J-BHI. A citation will be provided upon acceptance.
 
 # Why worst-case? A sensitivity test
