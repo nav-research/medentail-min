@@ -1,8 +1,3 @@
----
-title: Why Worst-case Medical Entailment
-nav_order: 4
----
-
 > This page accompanies a manuscript currently under review at IEEE J-BHI. A citation will be provided upon acceptance.
 
 # Why worst-case? A sensitivity test
@@ -25,6 +20,13 @@ Five aggregation variants are compared:
 - **sent_mean / sent_min** — source split into sentences; mean / minimum of
   per-sentence support
 - **chunk_mean / chunk_min** — source split into token chunks; mean / minimum
+
+> **Scope note:** `whole` is included here only as a sensitivity baseline, to
+> show what gets lost by *not* splitting the source at all. It is not used
+> anywhere in the paper's reported results, and it is not part of the public
+> `medentail_min` library's API (`method` accepts `"chunk"` or `"sentence"`
+> only — see [Premise variants](02_premise_variants)). The `whole` column
+> below was computed with a separate one-off script for this comparison.
 
 ## The three examples
 
