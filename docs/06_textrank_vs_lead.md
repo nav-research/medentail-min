@@ -36,3 +36,15 @@ The trade-off is on the overlap side. In most of the same pairs, **ROUGE-L is fl
 ## Practical takeaway
 
 TextRank source selection is a low-cost way to improve worst-case faithfulness on long-article targets, with a small and inconsistent cost to surface overlap. It doesn't replace any of the three adaptation levels studied in the paper — it's a preprocessing choice that interacts with all of them, since every prediction file used one variant or the other as its source context.
+
+## Other Pages:
+
+1. [MedEntail walkthrough](01_medentail_walkthrough) — what the metric computes, step by step, with a worked example.
+2. [Premise variants](02_premise_variants) — whole vs. sentence vs. chunk, and which one the public library actually supports.
+3. [Repetition penalty](03_repetition_penalty) — why raw entailment scores need a repetition penalty, and how it's applied.
+4. [Why worst-case](04_why_worst_case) — why we report $\mathrm{ME}_{\min}$ alongside $\mathrm{ME}_{\mathrm{mean}}$ instead of only the average.
+5. [The copy trap](05_copy_trap) — why a system that copies the source is trivially "faithful," and how we guard against it. 
+6. [TextRank vs. lead](06_textrank_vs_lead) — comparing source-selection strategies for long articles. 
+7. [Judge ceiling](07_judge_ceiling) — how output judging is bounded by the quality of its candidate pool.
+8. [Qualitative examples](08_qualitative_examples) — real worst-case and best-case predictions from the test sets, illustrating four distinct failure modes.
+
