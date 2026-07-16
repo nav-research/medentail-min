@@ -1,6 +1,6 @@
 # medentail-min
 
-A minimal, dependency-light implementation of MedEntail — a worst-case, entailment-based faithfulness metric for medical text simplification. See the [docs](../docs/00_index.md) for the design rationale; this README covers installation and usage.
+A minimal, dependency-light implementation of MedEntail — a worst-case, entailment-based faithfulness metric for medical text simplification. See the [docs](../docs/00_index.md) for the design rationale; this README covers installation and usage. Pages at: https://nav-research.github.io/medentail-min/ 
 
 > Manuscript under review. This library is released independently of the paper's adaptation methods, for anyone evaluating faithfulness in text simplification or summarization.
 
