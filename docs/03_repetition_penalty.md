@@ -1,6 +1,7 @@
 ---
 title: Repetition penalty
 nav_order: 3
+layout: default
 ---
 
 > This page accompanies a manuscript currently under review at IEEE J-BHI. A citation will be provided upon acceptance.
