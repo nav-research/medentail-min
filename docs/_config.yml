@@ -1,0 +1,14 @@
+title: medentail-min docs
+description: Design notes and reference implementation for the MedEntail worst-case entailment metric.
+theme: just-the-docs
+
+# Without this, pages render without the theme's layout (no sidebar, no nav)
+# unless each page sets `layout: default` in its own front matter.
+defaults:
+  - scope:
+      path: ""
+    values:
+      layout: "default"
+
+# Optional but recommended by just-the-docs:
+color_scheme: light
