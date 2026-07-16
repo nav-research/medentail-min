@@ -1,6 +1,7 @@
 ---
 title: Judge ceiling
 nav_order: 7
+layout: default
 ---
 
 # Judge ceiling
