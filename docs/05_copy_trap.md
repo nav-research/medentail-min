@@ -1,6 +1,7 @@
 ---
 title: The copy trap
 nav_order: 5
+layout: default
 ---
 
 # The copy trap
