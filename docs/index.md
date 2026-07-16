@@ -1,6 +1,7 @@
 ---
 title: Index
 nav_order: 0
+permalink: /
 ---
 
 # medentail-min docs
