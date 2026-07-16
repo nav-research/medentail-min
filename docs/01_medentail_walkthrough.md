@@ -18,6 +18,7 @@ The code below is trimmed from the actual [`medentail_min`](../medentail_min/REA
 The hypothesis side is always split into sentences (`nltk.sent_tokenize`), never treated as one block. This is what makes the metric sentence-level rather than document-level: a single bad sentence can't be diluted by the good sentences around it. Each sentence is also truncated to `hyp_max_tokens` (400 by default) before scoring.
 
 ```python
+# inside score_one():
 hyp = [s for s in self._sent_tokenize(str(prediction)) if s.strip()]
 ```
 
@@ -59,12 +60,23 @@ Every prediction sentence is paired with every premise unit, and all pairs are s
 ```python
 def _per_sentence_support(self, premises, hypotheses):
     """For each hypothesis sentence, max entailment over the premises."""
+    if not premises or not hypotheses:
+        return np.array([])
+    # each hypothesis sentence is truncated before scoring
+    hyp = [
+        self._tok.decode(
+            self._tok(h, add_special_tokens=False, truncation=True,
+                      max_length=self.hyp_max_tokens)["input_ids"],
+            skip_special_tokens=True,
+        )
+        for h in hypotheses
+    ]
     P, H = [], []
-    for h in hypotheses:
+    for h in hyp:
         for p in premises:
             P.append(p)
             H.append(h)
-    M = np.array(self._entail(P, H)).reshape(len(hypotheses), len(premises))
+    M = np.array(self._entail(P, H)).reshape(len(hyp), len(premises))
     return M.max(axis=1)   # best-supporting premise per sentence
 ```
 
@@ -76,6 +88,7 @@ Each prediction sentence now has one score (its best entailment against any prem
 
 ```python
 def score_one(self, source, prediction):
+    self._ensure_loaded()   # the NLI model is downloaded/loaded here, on first call
     prem = self._premises(source)
     hyp = [s for s in self._sent_tokenize(str(prediction)) if s.strip()]
     per = self._per_sentence_support(prem, hyp)
