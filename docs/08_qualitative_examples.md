@@ -1,6 +1,7 @@
 ---
 title: Qualitative examples
 nav_order: 8
+layout: default
 ---
 
 # Qualitative examples
