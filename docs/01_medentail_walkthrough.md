@@ -1,6 +1,7 @@
 ---
 title: MedEntail walkthrough
 nav_order: 1
+layout: default
 ---
 
 # MedEntail walkthrough
