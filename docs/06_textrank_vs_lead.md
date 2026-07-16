@@ -1,6 +1,7 @@
 ---
 title: TextRank vs. lead
 nav_order: 6
+layout: default
 ---
 
 # TextRank vs. lead
