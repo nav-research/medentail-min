@@ -30,8 +30,8 @@ available.
 ## Installation
 
 ```bash
-git clone https://github.com/<user>/medentail_min.git
-cd medentail_min
+git clone https://github.com/nav-research/medentail-min.git
+cd medentail-min/medentail_min
 pip install -r requirements.txt
 ```
 
@@ -42,7 +42,7 @@ of more than a few dozen documents.
 ## Usage
 
 ```python
-from medentail import MedEntail
+from medentail_min import MedEntail
 
 me = MedEntail()                          # loads the NLI model on first call
 
@@ -123,10 +123,10 @@ login(token="hf_...")
 
 ## Notes
 
-This is an explicit, worst-case formulation of the *MedEntail* metric named in
-prior work (Nasimov et al., 2025), grounded in NLI-based faithfulness evaluation
-(Laban et al., 2022, *SummaC*). The contribution emphasized here is the
-worst-case (minimum) aggregation, `ME_min`.
+The name *MedEntail* originates in prior work (Nasimov et al., 2025), which
+introduces the term without a public formulation. This package provides the
+first explicit, worst-case implementation of the metric under that name,
+grounded in NLI-based faithfulness evaluation (Laban et al., 2022, *SummaC*).
 
 ## License
 
