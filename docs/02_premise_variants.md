@@ -1,6 +1,7 @@
 ---
 title: Premise variants
 nav_order: 2
+layout: default
 ---
 
 # Premise variants: whole, sentence, chunk
