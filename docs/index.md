@@ -2,6 +2,7 @@
 title: Index
 nav_order: 0
 permalink: /
+layout: default
 ---
 
 # medentail-min docs
